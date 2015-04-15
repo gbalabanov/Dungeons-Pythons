@@ -61,5 +61,19 @@ class Hero:
             return False
         self.spell = spell
 
+    def atack(self, by):
+        if by != "magic" or by != "weapon":
+            return False
+        if self.weapon == None or self.spell == None:
+            return 0
+        if by == "weapon":
+            return self.weapon.power
+        if by == "spell":
+            return self.spell.power
+
+
+
+
+
 
 
