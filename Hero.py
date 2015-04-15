@@ -1,9 +1,13 @@
+from Spell import Spell
+from Weapon import Weapon
+
 class Hero:
 
     def __init__(self, name, title, health, mana, mana_regen, weapon=None, spell=None):
         self.name = name
         self.title = title
         self.health = health
+        self.mana = mana
         self.mana_regen = mana_regen
         self.max_health = health
         self.max_mana = mana
@@ -46,3 +50,16 @@ class Hero:
         else:
             self.mana += mana_amount
             return True
+
+    def equip(self, weapon):
+        if not isinstance(weapon, Weapon):
+            return False
+        self.weapon = weapon
+
+    def learn(self, spell):
+        if not isinstance(spell, Spell):
+            return False
+        self.spell = spell
+
+
+
