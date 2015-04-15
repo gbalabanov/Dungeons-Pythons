@@ -28,10 +28,11 @@ class Hero:
         return self.mana > self.spell.mana_cost
 
     def take_damage(self, dmg_points):
-        if dmg_points >= self.get_health:
+        if dmg_points >= self.get_health():
             self.health = 0
         else:
             self.health -= dmg_points
+        return self.health
 
     def take_healing(self, healing_points):
         if not self.is_alive():
