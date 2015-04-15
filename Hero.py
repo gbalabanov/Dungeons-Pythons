@@ -1,6 +1,6 @@
 class Hero:
 
-    def __init__(self, name, title, health, mana, mana_regen, weapon = None, spell = None):
+    def __init__(self, name, title, health, mana, mana_regen, weapon=None, spell=None):
         self.name = name
         self.title = title
         self.health = health
@@ -13,3 +13,36 @@ class Hero:
 
     def get_health(self):
         return self.health
+
+    def get_mana(self):
+        return self.mana
+
+    def is_alive(self):
+        return self.health != 0
+
+    def can_cast(self):
+        return self.mana > self.spell.mana_cost
+
+    def take_damage(self, dmg_points):
+        if dmg_points >= self.get_health:
+            self.health = 0
+        else:
+            self.health -= dmg_points
+
+    def take_healing(self, healing_points):
+        if not self.is_alive():
+            return False
+        if healing_points + self.health > self.max_health:
+            self.health = self.max_health
+            return True
+        else:
+            self.health += healing_points
+            return True
+
+    def take_mana(self, mana_amount):
+        if mana_amount + self.mana > self.max_mana:
+            self.mana = self.max_mana
+            return True
+        else:
+            self.mana += mana_amount
+            return True
