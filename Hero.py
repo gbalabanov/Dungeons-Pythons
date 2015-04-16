@@ -11,6 +11,8 @@ class Hero:
         self.mana_regen = mana_regen
         self.max_health = health
         self.max_mana = mana
+        self.weapon = weapon
+        self.spell = spell
         self._x = 0
         self._y = 0
 
@@ -64,7 +66,7 @@ class Hero:
             return False
         self.spell = spell
 
-    def atack(self, by):
+    def attack(self, by):
         if by != "magic" or by != "weapon":
             return False
         if self.weapon == None or self.spell == None:
