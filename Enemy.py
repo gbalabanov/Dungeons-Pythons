@@ -43,9 +43,9 @@ class Enemy:
 
 
     def atack(self, by):
-        if by != "magic" or by != "weapon":
+        if by != "magic" and by != "weapon":
             return False
-        if self.weapon == None or self.spell == None:
+        if self.weapon is None or self.spell is None:
             return 0
         if by == "weapon":
             return self.weapon.power
