@@ -11,6 +11,8 @@ class Hero:
         self.mana_regen = mana_regen
         self.max_health = health
         self.max_mana = mana
+        self._x = 0
+        self._y = 0
 
     def known_as(self):
         return "{} the {}".format(self.name, self.title)
