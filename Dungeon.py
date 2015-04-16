@@ -22,7 +22,7 @@ class Dungeon:
         for x in output:
             print(x, end="\n")
 
-    def spawn(self,myhero):
+    def spawn(self, myhero):
         if not isinstance(myhero, Hero):
             raise ValueError
         x = 0
@@ -41,18 +41,41 @@ class Dungeon:
             x = 0
             y += 1
 
-    def move_hero(self,direction):
-        if direction not in ["up","down","left","right"]:
+    def move_hero(self, direction):
+        if direction not in ["up", "down", "left", "right"]:
             raise ValueError
         if direction == "right":
-            self._map[self._hero._x][self._hero._y] = "."
-            self._hero._y+=1
-            self._map[self._hero._x][self._hero._y] = "H"
-
+            if self._hero._x == len(self._map[0]) -1 :
+                return False
+            self._map[self._hero._y][self._hero._x] = "."
+            self._hero._x += 1
+            self._map[self._hero._y][self._hero._x] = "H"
+            return True
+        if direction == "left":
+            if self._hero._x == 0 :
+                return False
+            self._map[self._hero._y][self._hero._x] = "."
+            self._hero._x -= 1
+            self._map[self._hero._y][self._hero._x] = "H"
+            return True
+        if direction == "up":
+            if self._hero._y == 0 :
+                return False
+            self._map[self._hero._y][self._hero._x] = "."
+            self._hero._y -= 1
+            self._map[self._hero._y][self._hero._x] = "H"
+            return True
+        if direction == "down":
+            if self._hero._y == len(self._map) -1 :
+                return False
+            self._map[self._hero._y][self._hero._x] = "."
+            self._hero._y += 1
+            self._map[self._hero._y][self._hero._x] = "H"
+            return True
 
 d = Dungeon("level1.txt")
-hero =Hero("batman","the dark knight", 100, 100, 2)
+hero = Hero("batman", "the dark knight", 100, 100, 2)
 print(d.spawn(hero))
+print(d.move_hero("down"))
 d.print_map()
-d.move_hero("right")
-d.print_map()
+
