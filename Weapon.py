@@ -7,5 +7,5 @@ class Weapon:
     def __eq__(self, other):
         return self.power == other.power
 
-    def __ge__(self,other):
+    def __ge__(self, other):
         return self.power > other.power

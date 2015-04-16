@@ -1,6 +1,6 @@
 from Hero import Hero
 from Spell import Spell
-from Weapon import Weapon
+#from Weapon import Weapon
 
 import unittest
 
@@ -26,7 +26,7 @@ class TestHero(unittest.TestCase):
         self.assertEqual(Hero.get_mana(self.hero), self.hero.mana)
 
     def test_is_alive(self):
-        self.assertTrue(Hero.is_alive(self.hero) != 0)
+        self.assertTrue(self.hero.is_alive() != 0)
 
     def test_can_cast(self):
         self.hero.learn(self.spell)
@@ -34,11 +34,33 @@ class TestHero(unittest.TestCase):
 
     def test_take_damage(self):
         self.assertEqual(self.hero.take_damage(101), 0)
-        #self.assertEqual(self.hero.take_damage(99), self.hero.health - 99)
 
     def test_healing(self):
         self.hero.health = 0
         self.assertFalse(self.hero.take_healing(50))
+        self.hero.health = 100
+        self.assertTrue(self.hero.take_healing(50))
+
+    def test_take_mana(self):
+        self.hero.take_mana(202)
+        self.assertEqual(self.hero.mana, 100)
+
+    def test_equip(self):
+        false_instance = 6
+        self.assertFalse(self.hero.equip(false_instance))
+
+    def test_learn(self):
+        false_instance = 6
+        self.assertFalse(self.hero.learn(false_instance))
+
+    def test_attack(self):
+        self.assertFalse(self.hero.attack("something"))
+        self.hero.weapon = None
+        self.hero.spell = None
+        self.assertEqual(self.hero.attack("something"), 0)
+        other = Hero(name="Bron", title="Dragonslayer",
+                     health=100, mana=100, mana_regen=2,weapon=None, spell=None)
+        self.assertEqual(other.attack("weapon"), other.weapon.power)
 
 if __name__ == '__main__':
     unittest.main()
