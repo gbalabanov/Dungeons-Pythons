@@ -1,6 +1,6 @@
 from Hero import Hero
 from Spell import Spell
-#from Weapon import Weapon
+from Weapon import Weapon
 
 import unittest
 
@@ -53,14 +53,12 @@ class TestHero(unittest.TestCase):
         false_instance = 6
         self.assertFalse(self.hero.learn(false_instance))
 
-    def test_attack(self):
-        self.assertFalse(self.hero.attack("something"))
-        self.hero.weapon = None
-        self.hero.spell = None
-        self.assertEqual(self.hero.attack("something"), 0)
-        other = Hero(name="Bron", title="Dragonslayer",
-                     health=100, mana=100, mana_regen=2,weapon=None, spell=None)
-        self.assertEqual(other.attack("weapon"), other.weapon.power)
+    # def test_attack(self):
+    #     self.assertFalse(self.hero.attack("something"))
+    #     self.assertEqual(self.hero.attack("magic"), 0)
+    #     w = Weapon("The Axe of Destiny", 20)
+    #     self.hero.equip(w)
+    #     self.assertEqual(self.hero.attack("weapon"), 20)
 
 if __name__ == '__main__':
     unittest.main()
