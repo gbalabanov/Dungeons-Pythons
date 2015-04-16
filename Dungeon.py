@@ -9,7 +9,7 @@ class Dungeon:
 
     def __init__(self, map_file):
         if os.path.isfile(map_file) == False:
-            raise AttributeError("No such directory !")
+            raise AttributeError("No such file!")
         with open(map_file, "r") as f:
             matrix = []
             for line in f.readlines():
@@ -47,7 +47,7 @@ class Dungeon:
         if direction == "right":
             if self._hero._x == len(self._map[0]) - 1:
                 return False
-            if self._map[self._hero._y][self._hero._x+1] == "#":
+            if self._map[self._hero._y][self._hero._x + 1] == "#":
                 return False
             self._map[self._hero._y][self._hero._x] = "."
             self._hero._x += 1
@@ -56,7 +56,7 @@ class Dungeon:
         if direction == "left":
             if self._hero._x == 0:
                 return False
-            if self._map[self._hero._y][self._hero._-1] == "#":
+            if self._map[self._hero._y][self._hero._ - 1] == "#":
                 return False
             self._map[self._hero._y][self._hero._x] = "."
             self._hero._x -= 1
@@ -65,7 +65,7 @@ class Dungeon:
         if direction == "up":
             if self._hero._y == 0:
                 return False
-            if self._map[self._hero._y-1][self._hero._x] == "#":
+            if self._map[self._hero._y - 1][self._hero._x] == "#":
                 return False
             self._map[self._hero._y][self._hero._x] = "."
             self._hero._y -= 1
@@ -74,15 +74,21 @@ class Dungeon:
         if direction == "down":
             if self._hero._y == len(self._map) - 1:
                 return False
-            if self._map[self._hero._y+1][self._hero._x] == "#":
+            if self._map[self._hero._y + 1][self._hero._x] == "#":
                 return False
             self._map[self._hero._y][self._hero._x] = "."
             self._hero._y += 1
             self._map[self._hero._y][self._hero._x] = "H"
             return True
 
-d = Dungeon("level1.txt")
-hero = Hero("batman", "the dark knight", 100, 100, 2)
-print(d.spawn(hero))
-print(d.move_hero("down"))
-d.print_map()
+
+def main():
+
+    d = Dungeon("level1.txt")
+    hero = Hero("batman", "the dark knight", 100, 100, 2)
+    print(d.spawn(hero))
+    print(d.move_hero("down"))
+    d.print_map()
+
+if __name__ == '__main__':
+    main()
