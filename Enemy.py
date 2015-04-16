@@ -1,7 +1,12 @@
 class Enemy:
+<<<<<<< HEAD
 
     def __init__(self, name, mana, damage, weapon=None, spell=None):
         self.name = name
+=======
+    def __init__(self, health, mana, damage, weapon=None, spell = None):
+        self.health = health
+>>>>>>> 93326df65dec588718b1e5ad22168817775ab4d1
         self.mana = mana
         self.damage = damage
 
