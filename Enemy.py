@@ -5,6 +5,9 @@ class Enemy:
         self.mana = mana
         self.damage = damage
 
+    def __repr__(self):
+        return "Enemy(health = {} mana = {})".format(self.health, self.mana)
+
     def get_health(self):
         return self.health
 
