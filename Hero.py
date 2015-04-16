@@ -11,6 +11,8 @@ class Hero:
         self.mana_regen = mana_regen
         self.max_health = health
         self.max_mana = mana
+        self.weapon = weapon
+        self.spell = spell
         self._x = 0
         self._y = 0
 

@@ -15,6 +15,7 @@ class Dungeon:
             for line in f.readlines():
                 matrix.append(list(line.strip("\n")))
         self._map = matrix
+        self._hero = None
 
     def print_map(self):
         output = (["".join(x) for x in self._map])
@@ -30,13 +31,28 @@ class Dungeon:
         for row in self._map:
             for col in row:
                 if col == "S":
-                    print(x, y)
                     found = True
+                    self._map[x][y] = "H"
+                    myhero._x = x
+                    myhero._y = y
+                    self._hero = myhero
                     return True
-                y += 1
-            y = 0
-            x += 1
+                x += 1
+            x = 0
+            y += 1
+
+    def move_hero(self,direction):
+        if direction not in ["up","down","left","right"]:
+            raise ValueError
+        if direction == "right":
+            self._map[self._hero._x][self._hero._y] = "."
+            self._hero._y+=1
+            self._map[self._hero._x][self._hero._y] = "H"
 
 
 d = Dungeon("level1.txt")
-print(d.spawn())
+hero =Hero("batman","the dark knight", 100, 100, 2)
+print(d.spawn(hero))
+d.print_map()
+d.move_hero("right")
+d.print_map()
