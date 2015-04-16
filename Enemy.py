@@ -1,6 +1,6 @@
 class Enemy:
-    def __init__(self, name, mana, damage, weapon=None, spell = None):
-        self.name =name
+    def __init__(self, health, mana, damage, weapon=None, spell = None):
+        self.health = health
         self.mana = mana
         self.damage = damage
 
