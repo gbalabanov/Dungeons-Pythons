@@ -16,6 +16,9 @@ class Hero:
         self._x = 0
         self._y = 0
 
+    def __repr__(self):
+        return "Hero(health = {} mana = {})".format(self.health, self.mana)
+
     def known_as(self):
         return "{} the {}".format(self.name, self.title)
 
