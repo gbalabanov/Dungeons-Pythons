@@ -17,7 +17,7 @@ class Dungeon:
                 matrix.append(list(line.strip("\n")))
         self._map = matrix
         self._hero = None
-        self._enemy = Enemy(100,100,20)
+        self._enemy = Enemy(100, 100, 20)
 
     def print_map(self):
         output = (["".join(x) for x in self._map])
@@ -51,8 +51,8 @@ class Dungeon:
                 return False
             if self._map[self._hero._y][self._hero._x + 1] == "#":
                 return False
-            if self._map[self._hero._y][self._hero._x+1] == "E":
-                f=Fight(self._hero, self._enemy)
+            if self._map[self._hero._y][self._hero._x + 1] == "E":
+                f = Fight(self._hero, self._enemy)
             self._map[self._hero._y][self._hero._x] = "."
             self._hero._x += 1
             self._map[self._hero._y][self._hero._x] = "H"
@@ -85,25 +85,17 @@ class Dungeon:
             self._map[self._hero._y][self._hero._x] = "H"
             return True
 
-<<<<<<< HEAD
 
 def main():
 
     d = Dungeon("level1.txt")
     hero = Hero("batman", "the dark knight", 100, 100, 2)
+    wep = Weapon("Axe", 50)
+    hero.equip(wep)
     print(d.spawn(hero))
-    print(d.move_hero("down"))
+    d.move_hero("right")
     d.print_map()
+    print(hero.get_health())
 
 if __name__ == '__main__':
     main()
-=======
-d = Dungeon("level1.txt")
-hero = Hero("batman", "the dark knight", 100, 100, 2)
-wep=Weapon("Axe",50)
-hero.equip(wep)
-print(d.spawn(hero))
-d.move_hero("right")
-d.print_map()
-print(hero.get_health())
->>>>>>> 93326df65dec588718b1e5ad22168817775ab4d1
