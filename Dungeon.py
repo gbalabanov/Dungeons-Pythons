@@ -116,23 +116,36 @@ class Dungeon:
                 top_border = self._hero._y == 0
                 if not top_border:
                     if self._map[self._hero._y - rng][self._hero._x] == "E" and self._hero.can_cast():
-                        f = Fight(self._hero, self._enemies.pop())
-                        return f.start_battle(self._hero, self._enemies.pop())
+                        enemy = self._enemies.pop()
+                        f = Fight(self._hero, enemy)
+                        if f.start_battle(self._hero, enemy):
+                            self._map[enemy._y][enemy._x] = "."
+                            return True
                 bot_border = self._hero._y == len(self._map)
                 if not bot_border:
                     if self._map[self._hero._y + rng][self._hero._x] == "E" and self._hero.can_cast():
-                        f = Fight(self._hero, self._enemies.pop())
-                        return f.start_battle(self._hero, self._enemies.pop())
+                        enemy = self._enemies.pop()
+                        f = Fight(self._hero, enemy)
+                        print(enemy._x, enemy._y)
+                        if f.start_battle(self._hero, enemy):
+                            self._map[enemy._y][enemy._x] = "."
+                            return True
                 left_border = self._hero._x == 0
                 if not left_border:
                     if self._map[self._hero._y][self._hero._x - rng] == "E" and self._hero.can_cast():
-                        f = Fight(self._hero, self._enemies.pop())
-                        return f.start_battle(self._hero, self._enemies.pop())
+                        enemy = self._enemies.pop()
+                        f = Fight(self._hero, enemy)
+                        if f.start_battle(self._hero, enemy):
+                            self._map[enemy._y][enemy._x] = "."
+                            return True
                 right_border = self._hero._x == 0
                 if not right_border:
                     if self._map[self._hero._y][self._hero._x + rng] == "E" and self._hero.can_cast():
-                        f = Fight(self._hero, self._enemies.pop())
-                        return f.start_battle(self._hero, self._enemies.pop())
+                        enemy = self._enemies.pop()
+                        f = Fight(self._hero, enemy)
+                        if f.start_battle(self._hero, enemy):
+                            self._map[enemy._y][enemy._x] = "."
+                            return True
         return False
 
 
@@ -140,15 +153,16 @@ def main():
 
     d = Dungeon("level1.txt")
     hero = Hero("batman", "the dark knight", 100, 100, 3)
-    wep = Weapon("Axe", 20)
+    wep = Weapon("Axe", 10)
     hero.equip(wep)
     print(d.spawn(hero))
     d.move_hero("right")
     d.print_map()
     print(hero.get_health())
-    spell = Spell("cherna maiq", 10, 20, 4)
+    spell = Spell("cherna maiq", 10, 20, 3)
     hero.learn(spell)
     print(d.hero_atack(by="spell"))
+    d.print_map()
 
 if __name__ == '__main__':
     main()

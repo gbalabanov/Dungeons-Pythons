@@ -26,7 +26,7 @@ class Fight:
                         print("Hero can not cast a spell.")
                     print("Enemy moves one block closer to Hero. This is his move.")
                     dist-=1
-                if self.hero.can_cast():
+                if self.hero.can_cast() and self.hero.weapon is not None and self.hero.spell.power > self.hero.weapon.power:
                     self.hero.mana-=self.hero.spell.mana_cost
                     self.enemy.take_damage(self.hero.spell.power)
                     print("Hero casts a {} ({} mana left), hits enemy for {} dmg. Enemy health is {}".format(self.hero.spell.name,self.hero.mana ,self.hero.spell.power, self.enemy.health))
