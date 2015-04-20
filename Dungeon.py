@@ -18,10 +18,15 @@ class Dungeon:
         self._map = matrix
         self._hero = None
         self._enemies = []
+        enemy_x=0
+        enemy_y=0
         for row in self._map:
             for col in row:
                 if col == "E":
-                    self._enemies.append(Enemy(100, 100, 50))
+                    self._enemies.append(Enemy(100, 100, 50, enemy_x, enemy_y))
+                enemy_x+=1
+            enemy_x=0
+            enemy_y+=1
 
     def print_map(self):
         output = (["".join(x) for x in self._map])
@@ -99,46 +104,51 @@ class Dungeon:
             self._map[self._hero._y][self._hero._x] = "H"
             return True
 
-    def hero_atack(self):
-        top_border = False
-        bot_border = False
-        left_border = False
-        right_border = False
-        if self._hero is None or self._hero.spell is None:
-            return False
-        for rng in range(0, self._hero.spell.cast_range + 1):
-            top_border = self._hero._y == 0
-            if not top_border:
-                if self._map[self._hero._y - rng][self._hero._x] == "E":
-                    f = Fight(self._hero, self._enemies.pop())
-                    f.start_battle(self._hero, self._enemies.pop())
-            bot_border = self._hero._y == len(self._map)
-            if not bot_border:
-                if self._map[self._hero._y + rng][self._hero._x] == "E":
-                    f = Fight(self._hero, self._enemies.pop())
-                    f.start_battle(self._hero, self._enemies.pop())
-            left_border = self._hero._x == 0
-            if not left_border:
-                if self._map[self._hero._y][self._hero._x - rng] == "E":
-                    f = Fight(self._hero, self._enemies.pop())
-                    f.start_battle(self._hero, self._enemies.pop())
-            right_border = self._hero._x == 0
-            if not right_border:
-                if self._map[self._hero._y][self._hero._x + rng] == "E":
-                    f = Fight(self._hero, self._enemies.pop())
-                    f.start_battle(self._hero, self._enemies.pop())
+    def hero_atack(self,by):
+        if by == "spell":
+            top_border = False
+            bot_border = False
+            left_border = False
+            right_border = False
+            if self._hero is None or self._hero.spell is None:
+                return False
+            for rng in range(0, self._hero.spell.cast_range + 1):
+                top_border = self._hero._y == 0
+                if not top_border:
+                    if self._map[self._hero._y - rng][self._hero._x] == "E" and self._hero.can_cast():
+                        f = Fight(self._hero, self._enemies.pop())
+                        return f.start_battle(self._hero, self._enemies.pop())
+                bot_border = self._hero._y == len(self._map)
+                if not bot_border:
+                    if self._map[self._hero._y + rng][self._hero._x] == "E" and self._hero.can_cast():
+                        f = Fight(self._hero, self._enemies.pop())
+                        return f.start_battle(self._hero, self._enemies.pop())
+                left_border = self._hero._x == 0
+                if not left_border:
+                    if self._map[self._hero._y][self._hero._x - rng] == "E" and self._hero.can_cast():
+                        f = Fight(self._hero, self._enemies.pop())
+                        return f.start_battle(self._hero, self._enemies.pop())
+                right_border = self._hero._x == 0
+                if not right_border:
+                    if self._map[self._hero._y][self._hero._x + rng] == "E" and self._hero.can_cast():
+                        f = Fight(self._hero, self._enemies.pop())
+                        return f.start_battle(self._hero, self._enemies.pop())
+        return False
 
 
 def main():
 
     d = Dungeon("level1.txt")
-    hero = Hero("batman", "the dark knight", 100, 100, 2)
-    wep = Weapon("Axe", 50)
+    hero = Hero("batman", "the dark knight", 100, 100, 3)
+    wep = Weapon("Axe", 20)
     hero.equip(wep)
     print(d.spawn(hero))
     d.move_hero("right")
     d.print_map()
     print(hero.get_health())
+    spell = Spell("cherna maiq", 20, 20, 4)
+    hero.learn(spell)
+    print(d.hero_atack(by="spell"))
 
 if __name__ == '__main__':
     main()

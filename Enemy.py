@@ -1,9 +1,11 @@
 class Enemy:
 
-    def __init__(self, health, mana, damage, weapon=None, spell=None):
+    def __init__(self, health, mana, damage, x,y, weapon=None, spell=None):
         self.health = health
         self.mana = mana
         self.damage = damage
+        self._x = x
+        self._y = y
 
     def __repr__(self):
         return "Enemy(health = {} mana = {})".format(self.health, self.mana)
