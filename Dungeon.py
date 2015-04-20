@@ -23,7 +23,7 @@ class Dungeon:
         for row in self._map:
             for col in row:
                 if col == "E":
-                    self._enemies.append(Enemy(100, 100, 50, enemy_x, enemy_y))
+                    self._enemies.append(Enemy(100, 100, 30, enemy_x, enemy_y))
                 enemy_x+=1
             enemy_x=0
             enemy_y+=1
@@ -146,7 +146,7 @@ def main():
     d.move_hero("right")
     d.print_map()
     print(hero.get_health())
-    spell = Spell("cherna maiq", 20, 20, 4)
+    spell = Spell("cherna maiq", 10, 20, 4)
     hero.learn(spell)
     print(d.hero_atack(by="spell"))
 

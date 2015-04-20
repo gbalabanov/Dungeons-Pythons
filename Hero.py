@@ -34,7 +34,7 @@ class Hero:
     def can_cast(self):
         if self.spell is None:
             return False
-        return self.mana > self.spell.mana_cost
+        return self.mana >= self.spell.mana_cost
 
     def take_damage(self, dmg_points):
         if dmg_points >= self.get_health():
