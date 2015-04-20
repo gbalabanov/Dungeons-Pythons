@@ -9,13 +9,15 @@ class Fight:
     def __init__(self, hero, enemy):
         if not isinstance(hero, Hero) or not isinstance(enemy, Enemy):
             raise AttributeError
-        print("A fight started between" + repr(hero) + " and " + repr(enemy))
-        while hero.get_health() > 0 and enemy.get_health() > 0:
-            enemy.health-=hero.weapon.power
+        print("A fight started between " + repr(hero) + " and " + repr(enemy))
+        while True:
+            enemy.take_damage(hero.weapon.power)
             print("{} hits with {} for {} dmg. Enemy health is {}.".format(hero.name, hero.weapon.name, hero.weapon.power, enemy.get_health()))
+            if not enemy.is_alive():
+                print("Enemy is dead !")
+                break
             hero.take_damage(enemy.damage)
             print("Enemy hits {} for {} dmg. {} health is {}".format(hero.name, enemy.damage, hero.name, hero.get_health()))
-        if hero.get_health() == 0:
-            print("Hero is dead ! Game over !")
-        if enemy.get_health() == 0:
-            print("Enemy is dead !")
+            if not hero.is_alive():
+                print("Hero is dead ! \n ===Game over ====")
+                break

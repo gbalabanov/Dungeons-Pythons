@@ -29,9 +29,11 @@ class Hero:
         return self.mana
 
     def is_alive(self):
-        return self.health != 0
+        return self.health > 0
 
     def can_cast(self):
+        if self.spell is None:
+            return False
         return self.mana > self.spell.mana_cost
 
     def take_damage(self, dmg_points):
@@ -72,11 +74,12 @@ class Hero:
     def attack(self, by):
         if by != "magic" or by != "weapon":
             return False
-        if self.weapon == None or self.spell == None:
+        if (self.weapon == None and by == "weapon") or (self.spell == None and by == "magic"):
             return 0
         if by == "weapon":
             return self.weapon.power
-        if by == "spell" and self.can_cast():
+        if by == "magic" and self.can_cast():
+            self.mana-=self.spell.mana_cost
             return self.spell.power
 
 

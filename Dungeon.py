@@ -17,7 +17,11 @@ class Dungeon:
                 matrix.append(list(line.strip("\n")))
         self._map = matrix
         self._hero = None
-        self._enemy = Enemy(100,100,20)
+        self._enemies = []
+        for row in self._map:
+            for col in row:
+                if col == "E":
+                    self._enemies.append(Enemy(100, 100, 50))
 
     def print_map(self):
         output = (["".join(x) for x in self._map])
@@ -49,10 +53,10 @@ class Dungeon:
         if direction == "right":
             if self._hero._x == len(self._map[0]) - 1:
                 return False
-            if self._map[self._hero._y][self._hero._x+1] == "#":
+            if self._map[self._hero._y][self._hero._x + 1] == "#":
                 return False
-            if self._map[self._hero._y][self._hero._x+1] == "E":
-                f=Fight(self._hero, self._enemy)
+            if self._map[self._hero._y][self._hero._x + 1] == "E":
+                f = Fight(self._hero, self._enemies.pop())
             self._map[self._hero._y][self._hero._x] = "."
             self._hero._x += 1
             self._map[self._hero._y][self._hero._x] = "H"
@@ -60,8 +64,10 @@ class Dungeon:
         if direction == "left":
             if self._hero._x == 0:
                 return False
-            if self._map[self._hero._y][self._hero._-1] == "#":
+            if self._map[self._hero._y][self._hero._ - 1] == "#":
                 return False
+            if self._map[self._hero._y][self._hero._x - 1] == "E":
+                f = Fight(self._hero, self._enemies.pop())
             self._map[self._hero._y][self._hero._x] = "."
             self._hero._x -= 1
             self._map[self._hero._y][self._hero._x] = "H"
@@ -69,8 +75,10 @@ class Dungeon:
         if direction == "up":
             if self._hero._y == 0:
                 return False
-            if self._map[self._hero._y-1][self._hero._x] == "#":
+            if self._map[self._hero._y - 1][self._hero._x] == "#":
                 return False
+            if self._map[self._hero._y - 1][self._hero._x] == "E":
+                f = Fight(self._hero, self._enemies.pop())
             self._map[self._hero._y][self._hero._x] = "."
             self._hero._y -= 1
             self._map[self._hero._y][self._hero._x] = "H"
@@ -78,18 +86,28 @@ class Dungeon:
         if direction == "down":
             if self._hero._y == len(self._map) - 1:
                 return False
-            if self._map[self._hero._y+1][self._hero._x] == "#":
+            if self._map[self._hero._y + 1][self._hero._x] == "#":
                 return False
+            if self._map[self._hero._y + 1][self._hero._x] == "E":
+                f = Fight(self._hero, self._enemies.pop())
             self._map[self._hero._y][self._hero._x] = "."
             self._hero._y += 1
             self._map[self._hero._y][self._hero._x] = "H"
             return True
 
 d = Dungeon("level1.txt")
-hero = Hero("batman", "the dark knight", 100, 100, 2)
-wep=Weapon("Axe",50)
+hero = Hero("batman", "dark knight", 100, 100, 2)
+wep = Weapon("Axe", 60)
 hero.equip(wep)
 print(d.spawn(hero))
 d.move_hero("right")
 d.print_map()
-print(hero.get_health())
+print(hero.health)
+d.move_hero("down")
+d.print_map()
+d.move_hero("down")
+d.print_map()
+d.move_hero("down")
+d.print_map()
+d.move_hero("right")
+d.print_map()

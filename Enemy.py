@@ -14,7 +14,7 @@ class Enemy:
         return self.mana
 
     def is_alive(self):
-        return self.health != 0
+        return self.health > 0
 
     def can_cast(self):
         return self.mana > self.spell.mana_cost
