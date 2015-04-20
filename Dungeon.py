@@ -57,6 +57,7 @@ class Dungeon:
                 return False
             if self._map[self._hero._y][self._hero._x + 1] == "E":
                 f = Fight(self._hero, self._enemies.pop())
+                f.start_battle(self._hero, self._enemies.pop())
             self._map[self._hero._y][self._hero._x] = "."
             self._hero._x += 1
             self._map[self._hero._y][self._hero._x] = "H"
@@ -68,6 +69,7 @@ class Dungeon:
                 return False
             if self._map[self._hero._y][self._hero._x - 1] == "E":
                 f = Fight(self._hero, self._enemies.pop())
+                f.start_battle(self._hero, self._enemies.pop())
             self._map[self._hero._y][self._hero._x] = "."
             self._hero._x -= 1
             self._map[self._hero._y][self._hero._x] = "H"
@@ -79,6 +81,7 @@ class Dungeon:
                 return False
             if self._map[self._hero._y - 1][self._hero._x] == "E":
                 f = Fight(self._hero, self._enemies.pop())
+                f.start_battle(self._hero, self._enemies.pop())
             self._map[self._hero._y][self._hero._x] = "."
             self._hero._y -= 1
             self._map[self._hero._y][self._hero._x] = "H"
@@ -90,10 +93,42 @@ class Dungeon:
                 return False
             if self._map[self._hero._y + 1][self._hero._x] == "E":
                 f = Fight(self._hero, self._enemies.pop())
+                f.start_battle(self._hero, self._enemies.pop())
             self._map[self._hero._y][self._hero._x] = "."
             self._hero._y += 1
             self._map[self._hero._y][self._hero._x] = "H"
             return True
+
+    def hero_atack(self):
+        top_border = False
+        bot_border = False
+        left_border = False
+        right_border = False
+        if self._hero is None or self._hero.spell is None:
+            return False
+        for rng in range(0,self._hero.spell.cast_range + 1):
+            top_border = self._hero._y == 0
+            if not top_border:
+                if self._map[self._hero._y - rng][self._hero._x] == "E":
+                    f = Fight(self._hero, self._enemies.pop())
+                    f.start_battle(self._hero, self._enemies.pop())
+            bot_border = self._hero._y == len(self._map)
+            if not bot_border:
+                if self._map[self._hero._y + rng][self._hero._x] == "E":
+                    f = Fight(self._hero, self._enemies.pop())
+                    f.start_battle(self._hero, self._enemies.pop())
+            left_border = self._hero._x == 0
+            if not left_border:
+                if self._map[self._hero._y][self._hero._x - rng] == "E":
+                    f = Fight(self._hero, self._enemies.pop())
+                    f.start_battle(self._hero, self._enemies.pop())
+            right_border = self._hero._x == 0
+            if not right_border:
+                if self._map[self._hero._y][self._hero._x + rng] == "E":
+                    f = Fight(self._hero, self._enemies.pop())
+                    f.start_battle(self._hero, self._enemies.pop())
+
+
 
 d = Dungeon("level1.txt")
 hero = Hero("batman", "dark knight", 100, 100, 2)
@@ -102,12 +137,6 @@ hero.equip(wep)
 print(d.spawn(hero))
 d.move_hero("right")
 d.print_map()
-print(hero.health)
-d.move_hero("down")
-d.print_map()
-d.move_hero("down")
-d.print_map()
-d.move_hero("down")
-d.print_map()
-d.move_hero("right")
-d.print_map()
+spell = Spell("Frost boll",50, 20, 3)
+hero.learn(spell)
+d.hero_atack()

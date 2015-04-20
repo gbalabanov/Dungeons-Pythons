@@ -74,7 +74,7 @@ class Hero:
     def attack(self, by):
         if by != "magic" or by != "weapon":
             return False
-        if (self.weapon == None and by == "weapon") or (self.spell == None and by == "magic"):
+        if (self.weapon == None and by == "weapon") and (self.spell == None and by == "magic"):
             return 0
         if by == "weapon":
             return self.weapon.power
