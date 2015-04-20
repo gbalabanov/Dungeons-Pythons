@@ -10,7 +10,7 @@ class Dungeon:
 
     def __init__(self, map_file):
         if os.path.isfile(map_file) == False:
-            raise AttributeError("No such directory !")
+            raise AttributeError("No such file!")
         with open(map_file, "r") as f:
             matrix = []
             for line in f.readlines():
@@ -106,7 +106,7 @@ class Dungeon:
         right_border = False
         if self._hero is None or self._hero.spell is None:
             return False
-        for rng in range(0,self._hero.spell.cast_range + 1):
+        for rng in range(0, self._hero.spell.cast_range + 1):
             top_border = self._hero._y == 0
             if not top_border:
                 if self._map[self._hero._y - rng][self._hero._x] == "E":
@@ -129,14 +129,16 @@ class Dungeon:
                     f.start_battle(self._hero, self._enemies.pop())
 
 
+def main():
 
-d = Dungeon("level1.txt")
-hero = Hero("batman", "dark knight", 100, 100, 2)
-wep = Weapon("Axe", 60)
-hero.equip(wep)
-print(d.spawn(hero))
-d.move_hero("right")
-d.print_map()
-spell = Spell("Frost boll",50, 20, 3)
-hero.learn(spell)
-d.hero_atack()
+    d = Dungeon("level1.txt")
+    hero = Hero("batman", "the dark knight", 100, 100, 2)
+    wep = Weapon("Axe", 50)
+    hero.equip(wep)
+    print(d.spawn(hero))
+    d.move_hero("right")
+    d.print_map()
+    print(hero.get_health())
+
+if __name__ == '__main__':
+    main()

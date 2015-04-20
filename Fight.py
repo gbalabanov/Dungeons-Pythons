@@ -15,11 +15,13 @@ class Fight:
 
 
     def start_battle(self, hero, enemy):
+        dist = self.get_distance()
         while True:
             while self.hero.can_cast():
                 print("Hero casts a {}, hits enemy for {} dmg. Enemy health is {}".format(self.hero.spell.name, self.hero.spell.power, self.enemy.health))
                 self.hero.mana-=self.hero.spell.mana_cost
-                self.enemy.take_damage(self.hero.weapon.power)
+                self.enemy.take_damage(self.hero.spell.power)
+                print("")
             self.enemy.take_damage(self.hero.weapon.power)
             print("{} hits with {} for {} dmg. Enemy health is {}.".format(self.hero.name, self.hero.weapon.name, self.hero.weapon.power, self.enemy.get_health()))
             if not self.enemy.is_alive():

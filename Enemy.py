@@ -1,5 +1,6 @@
 class Enemy:
-    def __init__(self, health, mana, damage, weapon=None, spell = None):
+
+    def __init__(self, health, mana, damage, weapon=None, spell=None):
         self.health = health
         self.mana = mana
         self.damage = damage
@@ -43,7 +44,6 @@ class Enemy:
         else:
             self.mana += mana_amount
             return True
-
 
     def atack(self, by):
         if by != "magic" and by != "weapon":

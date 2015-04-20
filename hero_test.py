@@ -26,7 +26,7 @@ class TestHero(unittest.TestCase):
         self.assertEqual(Hero.get_mana(self.hero), self.hero.mana)
 
     def test_is_alive(self):
-        self.assertTrue(Hero.is_alive(self.hero) != 0)
+        self.assertTrue(self.hero.is_alive() != 0)
 
     def test_can_cast(self):
         self.hero.learn(self.spell)
@@ -34,11 +34,31 @@ class TestHero(unittest.TestCase):
 
     def test_take_damage(self):
         self.assertEqual(self.hero.take_damage(101), 0)
-        #self.assertEqual(self.hero.take_damage(99), self.hero.health - 99)
 
     def test_healing(self):
         self.hero.health = 0
         self.assertFalse(self.hero.take_healing(50))
+        self.hero.health = 100
+        self.assertTrue(self.hero.take_healing(50))
+
+    def test_take_mana(self):
+        self.hero.take_mana(202)
+        self.assertEqual(self.hero.mana, 100)
+
+    def test_equip(self):
+        false_instance = 6
+        self.assertFalse(self.hero.equip(false_instance))
+
+    def test_learn(self):
+        false_instance = 6
+        self.assertFalse(self.hero.learn(false_instance))
+
+    # def test_attack(self):
+    #     self.assertFalse(self.hero.attack("something"))
+    #     self.assertEqual(self.hero.attack("magic"), 0)
+    #     w = Weapon("The Axe of Destiny", 20)
+    #     self.hero.equip(w)
+    #     self.assertEqual(self.hero.attack("weapon"), 20)
 
 if __name__ == '__main__':
     unittest.main()
